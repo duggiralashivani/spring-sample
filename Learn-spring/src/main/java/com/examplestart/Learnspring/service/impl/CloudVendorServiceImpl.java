@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.examplestart.Learnspring.Exception.CloudVendorNotFoundException;
 import com.examplestart.Learnspring.model.CloudVendor;
 import com.examplestart.Learnspring.repository.CloudVendorRepository;
 import com.examplestart.Learnspring.service.CloudvendorService;
@@ -35,6 +36,8 @@ public class CloudVendorServiceImpl implements CloudvendorService{
 	}
 
 	public CloudVendor getCloudVendor(String cloudVendorId) {
+		if(cloudVendorRepository.findById(cloudVendorId).isEmpty())
+			throw new CloudVendorNotFoundException("Requested cloud vendor does not exist");
 		return cloudVendorRepository.findById(cloudVendorId).get();
 		 
 	}

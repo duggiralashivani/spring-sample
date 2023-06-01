@@ -2,6 +2,8 @@ package com.examplestart.Learnspring.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.examplestart.Learnspring.model.CloudVendor;
+import com.examplestart.Learnspring.response.ResponseHandler;
 import com.examplestart.Learnspring.service.CloudvendorService;
 
 @RestController
@@ -29,9 +32,10 @@ public class CloudVendorController {
 
 	//read specific cloud vendor
 	@GetMapping("{vendorId}")
-	public CloudVendor getCloudVendorDetails(@PathVariable("vendorId") String vendorId)
+	public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorId") String vendorId)
 	{
-		return cloudVendorService.getCloudVendor(vendorId);
+		return ResponseHandler.responseBuilder("requested vendor is given here", HttpStatus.OK, cloudVendorService.getCloudVendor(vendorId) );
+		//return cloudVendorService.getCloudVendor(vendorId);
 		
 		//return new CloudVendor ("C1","Vendor 1","Address one","XXX-XXX-XXXX");
 	} 
